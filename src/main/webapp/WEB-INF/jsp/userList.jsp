@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	welcome: ${userName}
-	<a href="/springMVC/web/user/userList">用户一览</a>
+	${age}
 </body>
 </html>

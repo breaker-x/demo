@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:aop="http://www.springframework.org/schema/aop" 
+xmlns:task="http://www.springframework.org/schema/task"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+http://www.springframework.org/schema/task  
+http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+     <!-- controller包(自动注入) -->
+    <context:component-scan base-package="com.bx.controller"/>
+    <context:component-scan base-package="com.bx.service"/>
+    
+	<!-- 引入属性文件 -->
+	<context:property-placeholder location="classpath:config.properties" />
+	<!-- <bean class="com.comm.util.PropertiesUtil" /> -->
+	<!-- 任务扫描 -->
+	<task:annotation-driven/> 
+	
+			 
+	<!-- 操作记录管理 -->
+	<!-- <bean id="operationManager" class="com.comm.manager.OperationManager" /> -->
+	<!-- 编码生成 -->
+	<!-- <bean id="codeInjectAspect" class="controller.barcode.interceptor.CodeInjectAspect"></bean> -->
+	
+<!-- 	<aop:config>
+
+		<aop:aspect id="operationAspect" ref="operationManager">
+			<aop:pointcut expression="execution(* dao.base.Basedao.insert*(..))||execution(* dao.base.Basedao.update*(..))" id="opCut"/>
+			<aop:before method="before" pointcut-ref="opCut"/>
+		</aop:aspect>
+		
+		<aop:aspect id="addCodeAspect" ref="codeInjectAspect">
+			<aop:pointcut expression="@annotation(controller.barcode.interceptor.Code) || execution(* dao.base.Basedao.insert*(..)) and @args(controller.barcode.interceptor.Code)" id="set_code"/>
+			<aop:before method="insertCode" pointcut-ref="set_code"/>
+		</aop:aspect> 
+		
+		<aop:aspect id="updateCodeAspect" ref="codeInjectAspect">
+			<aop:pointcut expression="@annotation(controller.barcode.interceptor.Code) || execution(* dao.base.Basedao.update*(..)) and @args(controller.barcode.interceptor.Code)" id="update_code"/>
+			<aop:before method="updateCode" pointcut-ref="update_code"/>
+		</aop:aspect> 
+	</aop:config> -->
+	
+
+</beans>

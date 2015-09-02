@@ -2,6 +2,7 @@ package com.bx.model;
 
 public class Users {
 	private String id;
+	private String userName;
 	private String password;
 	private String email;
 	private int sex;
@@ -12,6 +13,12 @@ public class Users {
 	}
 	public String getId(){
 		return id;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getPassword() {
 		return password;

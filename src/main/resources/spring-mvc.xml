@@ -14,18 +14,9 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/task  
 		http://www.springframework.org/schema/task/spring-task-4.0.xsd">
-		
 	
-    <!-- controller包(自动注入) -->
-    <context:component-scan base-package="com.bx.controller"/>
-    
-    <!-- 引入属性文件 -->
-	<context:property-placeholder location="classpath:config.properties" />
-	<!-- <bean class="com.comm.util.PropertiesUtil" /> -->
-	<!-- service包(自动注入) -->
-	<context:component-scan base-package="com.iyobo.service" />
-	<!-- 任务扫描 -->
-	<task:annotation-driven/> 
+    <!-- 启用spring mvc注解 -->		
+    <mvc:annotation-driven />
 	
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
