@@ -17,7 +17,8 @@
 	
     <!-- 启用spring mvc注解 -->		
     <mvc:annotation-driven />
-	
+    <!-- controller包(自动注入) -->
+	<context:component-scan base-package="com.bx.controller"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>

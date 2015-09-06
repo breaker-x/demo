@@ -129,5 +129,13 @@
 	</dependencies>
   <build>
     <finalName>springMVCdemo</finalName>
+    <plugins>
+        <plugin>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <version>1.3.2</version>
+        </plugin>
+    </plugins>
   </build>
+  
 </project>

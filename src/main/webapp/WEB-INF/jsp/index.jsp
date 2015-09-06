@@ -8,6 +8,6 @@
 </head>
 <body>
 	welcome: ${userName}
-	<a href="/springMVC/web/user/userList">用户一览</a>
+	<a href="/springMVCdemo/web/user/userList">用户一览</a>
 </body>
 </html>
