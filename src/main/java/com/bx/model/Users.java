@@ -1,7 +1,12 @@
 package com.bx.model;
 
-public class Users {
-    private Integer id;
+import java.io.Serializable;
+
+public class Users implements Serializable{
+
+	private static final long serialVersionUID = -8817998677126548047L;
+
+	private Integer id;
 
     private String username;
 
@@ -13,7 +18,7 @@ public class Users {
 
     private Integer age;
 
-    private String deleteFlag;
+    private String deleteFlag = "0";
 
     public Integer getId() {
         return id;

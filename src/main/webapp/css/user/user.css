@@ -1,0 +1,57 @@
+.content_table{
+	border-collapse: collapse;
+}
+.search_content{
+	height: 30px;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.search_ul li{
+	float: left;
+	line-height: 30px;
+	margin-left: 10px;
+}
+.search_content{
+	border: 1px solid #9cf;
+}
+.outside_content{
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	clear: both;
+}
+.outside_content_ul{
+	font-size: 14px;
+	color: #000;
+	height: 28px;
+	line-height: 28px;
+	border: 1px solid #abc6d9;
+	background: url(../../common/images/tit_top_bg.png) repeat;
+	padding-top: 2px;
+}
+.lli_top{
+	float: left;
+}
+.tit_top_left{
+	background: url(../../common/images/tit_top_left25.png) no-repeat;
+	padding-left: 10px;
+	height: 25px;
+}
+.rli_top{
+	float: right;
+	margin-right: 5px;
+	text-align: center;
+}
+
+.btn_operator{
+	width: 100px;
+	height: 30px;
+	margin: 0 auto ;
+}
+
+.btn_ul li{
+	float: left;
+	margin-left: 10px;
+}

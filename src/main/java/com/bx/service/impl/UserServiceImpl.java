@@ -10,15 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bx.dao.UserMapper;
 import com.bx.model.Users;
 import com.bx.service.IUserService;
+import com.bx.service.base.BaseServiceImpl;
 @Transactional
 @Service
-public class UserServiceImpl implements IUserService{
+public class UserServiceImpl extends BaseServiceImpl<Users, String, UserMapper> implements IUserService{
+
 	@Resource
 	private UserMapper userMapper;
-
+	
 	@Override
 	public List<Users> userList() {
-		return userMapper.userList();
+		return basedao.userList();
 	}
 
 	@Override
@@ -27,9 +29,17 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public void addUser() {
-		userMapper.addUser();
+	public void addUser(Users user) {
+		basedao.addUser(user);
 	}
 
-	
+	@Override
+	public Users searchById(String id) {
+		return basedao.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void updateUser(Users user) {
+		basedao.updateByPrimaryKey(user);
+	}
 }

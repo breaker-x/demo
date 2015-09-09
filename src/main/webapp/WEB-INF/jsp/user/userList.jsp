@@ -6,60 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户一览</title>
-<style>
-	.content_table{
-		border-collapse: collapse;
-	}
-	.search_content{
-		height: 30px;
-		width: 500px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	ul{
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-	.search_ul li{
-		float: left;
-	}
-	.search_content{
-		border: 1px solid #9cf;
-	}
-	.outside_content{
-		width: 500px;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 10px;
-		clear: both;
-	}
-	.outside_content_ul{
-		font-size:14px;
-		color:#000;
-		height:32px;
-		background:#9cf;
-	}
-	.lli_top{
-		line-height:25px;
-		float:left;
-	}
-	.tit_top_left{
-		background:url(../images/tit_top_left25.png) no-repeat;
-		padding-left:10px;
-		height:25px;
-	}
-	.rli_top{
-		float:right;
-		margin-right:5px;
-		text-align:center;
-	}
-</style>
-<script>
-	function sub(){
-		document.getElementById("sform").submit();
-	}
-</script>
+<link rel="stylesheet" type="text/css" href="/springMVCdemo/common/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="/springMVCdemo/css/user/user.css"/>
+<script type="text/javascript" src="/springMVCdemo/common/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="/springMVCdemo/js/user/user.js"></script>
 </head>
 <body>
 	<div class="mainContent">
@@ -73,7 +23,7 @@
 						<input type="text" id="uname" name="userName">
 					</li>
 					<li>
-						<a id="searchUser" href="javascript:void(0)" onclick="sub()">检索</a>
+						<a id="searchUser" href="javascript:void(0)">检索</a>
 					</li>
 				</ul>
 			</form>
@@ -85,7 +35,7 @@
 				</li>
 				<li class="rli_top">
 					<div class="tit_top_rights">
-						<a id="addUser" href="/springMVCdemo/web/user/addUser">添加</a>
+						<a href="/springMVCdemo/web/user/toEdit?id=">添加</a>
 					</div>
 				</li>
 			</ul>
@@ -104,6 +54,9 @@
 						<th>
 							年龄
 						</th>
+						<th>
+							操作
+						</th>
 					</tr>
 					<c:forEach items="${userList}" var="users">
 						<tr>
@@ -118,6 +71,10 @@
 							</td>
 							<td>
 								${users.age}
+							</td>
+							<td>
+								<a href="/springMVCdemo/web/user/toEdit?id=${users.id}">变更</a>
+								<a href="/springMVCdemo/web/user/delete?id=${users.id}" style="margin-left: 10px;">删除</a>
 							</td>
 						</tr>
 					</c:forEach>

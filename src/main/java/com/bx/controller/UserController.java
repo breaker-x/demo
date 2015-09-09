@@ -36,10 +36,12 @@ public class UserController {
 		List<Users> userList = userService.userList();
 		if(null != userList && userList.size() > 0){
 			for(int i = 0; i < userList.size(); i++){
-				if(userList.get(i).getSex().equals("0")){
-					userList.get(i).setSex("ÄÐ");
-				}else if(userList.get(i).getSex().equals("1")){
-					userList.get(i).setSex("Å®");
+				if(null != userList.get(i).getSex() && !("").equals(userList.get(i).getSex())){
+					if(userList.get(i).getSex().equals("0")){
+						userList.get(i).setSex("ÄÐ");
+					}else if(userList.get(i).getSex().equals("1")){
+						userList.get(i).setSex("Å®");
+					}
 				}
 			}
 		}
@@ -63,10 +65,40 @@ public class UserController {
 		return "user/userList";
 	}
 	
-	public String addUser(ModelMap map){
-		if(null != userService){
-			userService.addUser();
+	@RequestMapping(value="/toEdit")
+	public String toEditUser(@RequestParam String id, ModelMap map){
+		if(null == id || ("").equals(id)){
+			return "user/edit";
 		}
-		return "user/userList";
+		if(null != userService){
+			Users user = userService.searchById(id);
+			map.addAttribute("user", user);
+		}
+		return "user/edit";
+	}
+	
+	@RequestMapping(value="/edit")
+	public String editUser(Users user, ModelMap map){
+		if(null != userService && null != user){
+			if(null == user.getId() || ("").equals(user.getId())){
+				user.setDeleteFlag("0");
+				userService.addUser(user);
+			}else{
+				userService.updateUser(user);
+			}
+		}
+		return "redirect:/web/user/userList";
+	}
+	
+	@RequestMapping(value="/delete")
+	public String delete(@RequestParam String id){
+		if(null != userService){
+			Users user = userService.searchById(id);
+			if(null != user){
+				user.setDeleteFlag("1");
+				userService.updateUser(user);
+			}
+		}
+		return "redirect:/web/user/userList";
 	}
 }
