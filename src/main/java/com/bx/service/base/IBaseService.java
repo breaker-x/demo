@@ -3,6 +3,7 @@ package com.bx.service.base;
 import java.io.Serializable;
 import java.util.List;
 
+
 public interface IBaseService<T extends Serializable, ID> {
 public T add(T t);
 	
@@ -17,4 +18,5 @@ public T add(T t);
 	public List<T> selectAll(Object...object);
 
 	public List<T> selectBySelective(T t);
+	
 }

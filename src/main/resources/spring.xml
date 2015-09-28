@@ -11,17 +11,33 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-4.0.xsd
 http://www.springframework.org/schema/aop 
-http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 http://www.springframework.org/schema/task  
 http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
 	<!-- cservice包(自动注入) -->
 	<context:component-scan base-package="com.bx.service"/>
 	<!-- 引入属性文件 -->
-	<context:property-placeholder location="classpath:config.properties" />
+	<!-- <context:property-placeholder location="classpath:config.properties" /> -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+		    <list>
+		        <value>classpath:config.properties</value>
+		        <value>classpath:redis.properties</value>
+		    </list>
+		</property>	    
+	</bean>
 	<!-- <bean class="com.comm.util.PropertiesUtil" /> -->
 	<!-- 任务扫描 -->
 	<task:annotation-driven/> 
+	
+	<!-- jedis连接池 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+	    <property name="maxTotal" value="${redis.pool.maxTotal}" />  
+	    <property name="maxIdle" value="${redis.pool.maxIdle}" />  
+	    <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />  
+	    <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />  
+	</bean>  
 	
 	<!-- Jedis ConnectionFactory 数据库连接配置-->  
 	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">  
@@ -30,36 +46,18 @@ http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 	    <property name="password" value="${redis.password}" />  
 	    <property name="poolConfig" ref="jedisPoolConfig" />  
 	</bean>  
-	<!-- Jedis连接池配置 -->
-	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxTotal" value="${redis.pool.maxTotal}" />
-		<property name="maxIdle" value="${redis.pool.maxIdle}" />
-		<property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
-		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
-	</bean>
-	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
-		<constructor-arg index="0" ref="jedisPoolConfig" />
-		<constructor-arg index="1">
-			<list>
-				<bean class="redis.clients.jedis.JedisShardInfo">
-					<constructor-arg index="0" value="${redis1.hostname" />
-					<constructor-arg index="1" value="${redis.port}"
-						type="int" />
-				</bean>
-				<bean class="redis.clients.jedis.JedisShardInfo">
-					<constructor-arg index="0" value="${redis2.hostname" />
-					<constructor-arg index="1" value="${redis.port}"
-						type="int" />
-				</bean>
-			</list>
-		</constructor-arg>
-	</bean>
-	<!-- redisTemplate配置，redisTemplate是对Jedis的对redis操作的扩展，有更多的操作，封装使操作更便捷 --> 
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connection-factory-ref="jedisConnectionFactory" />  
 	
-	<!-- redis服务封装 -->
-	<bean id="redisService" class="com.bx.common.utils.service.RedisService" />
-	
+	<!-- redisTemplate配置，redisTemplate是对Jedis的对redis操作的扩展，有更多的操作，封装使操作更便捷   -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+	    <property name="connectionFactory" ref="jedisConnectionFactory"></property>
+	     <property name="keySerializer">  
+                <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>  
+         </property>  
+         <property name="valueSerializer">  
+                <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>  
+         </property> 
+	</bean>
+		
 	<!-- <bean id="springUtil" class="com.bx.common.utils.SpringContextUtil" />		  -->
 	<!-- 操作记录管理 -->
 	<!-- <bean id="operationManager" class="com.comm.manager.OperationManager" /> -->

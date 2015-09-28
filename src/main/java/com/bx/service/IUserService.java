@@ -16,4 +16,10 @@ public interface IUserService extends IBaseService<Users, String>{
 	public Users searchById(String id);
 	
 	public void updateUser(Users user);
+	
+	public void putKey(Users user);
+	
+	public void deleteKey(Users key);
+	
+	public Users getKey(Users key);
 }

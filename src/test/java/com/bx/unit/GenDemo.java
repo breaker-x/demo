@@ -15,6 +15,6 @@ public class GenDemo<T> {
 	}
 	
 	public void showType(){
-		System.out.println("T的实际类型是：" + ob.getClass().getName());
+		System.out.println("" + ob.getClass().getName());
 	}
 }

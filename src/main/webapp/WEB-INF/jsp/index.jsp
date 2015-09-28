@@ -9,5 +9,6 @@
 <body>
 	welcome: ${userName}
 	<a href="/springMVCdemo/web/user/userList">用户一览</a>
+	<a href="/springMVCdemo/web/user/tsdr">testsdr</a>
 </body>
 </html>

@@ -3,7 +3,7 @@ package com.bx.test;
 
 public class EnumTest {
 	public enum Light{
-		RED("红色",0), GREEN("绿色", 1), YELLOW("黄色", 2);
+		RED("锟斤拷色",0), GREEN("锟斤拷色", 1), YELLOW("锟斤拷色", 2);
 		private String name;
 		private int index;
 		
@@ -38,9 +38,9 @@ public class EnumTest {
 	public static void testTraversalEnum(){
 		Light[] allLight = Light.values();
 		for(Light light : allLight){
-			System.out.println("当前灯name：" + light.getName());
-			System.out.println("当前灯ordinal：" + light.ordinal());
-			System.out.println("当前灯：" + light);
+			System.out.println("" + light.getName());
+			System.out.println("" + light.ordinal());
+			System.out.println("" + light);
 		}
 	}
 }

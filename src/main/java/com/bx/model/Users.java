@@ -5,7 +5,8 @@ import java.io.Serializable;
 public class Users implements Serializable{
 
 	private static final long serialVersionUID = -8817998677126548047L;
-
+	
+	private final String OBJECT_KEY = "USER";
 	private Integer id;
 
     private String username;
@@ -20,7 +21,14 @@ public class Users implements Serializable{
 
     private String deleteFlag = "0";
 
-    public Integer getId() {
+    public Users(String username, Integer age){
+    	this.username = username;
+    	this.age = age;
+    }
+    public Users() {
+    	
+	}
+	public Integer getId() {
         return id;
     }
 
@@ -75,4 +83,16 @@ public class Users implements Serializable{
     public void setDeleteFlag(String deleteFlag) {
         this.deleteFlag = deleteFlag == null ? null : deleteFlag.trim();
     }
+
+	public String getOBJECT_KEY() {
+		return OBJECT_KEY;
+	}
+
+	public String getKey(){
+		return getUsername();
+	}
+	@Override
+	public String toString(){
+		return "username: " + username + " , " + "age: " + age;
+	}
 }

@@ -97,5 +97,4 @@ public class BaseServiceImpl<T extends Serializable, ID, baseDao extends BaseMap
 		
 		basedao.updateByPrimaryKeySelective(t);
 	}
-
 }

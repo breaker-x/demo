@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -18,7 +19,7 @@ import com.bx.service.IUserService;
 public class UserController {
 	@Resource
 	private IUserService userService;
-
+	
 	@RequestMapping("/login")
 	public String login(){
 		return "login";
@@ -38,9 +39,9 @@ public class UserController {
 			for(int i = 0; i < userList.size(); i++){
 				if(null != userList.get(i).getSex() && !("").equals(userList.get(i).getSex())){
 					if(userList.get(i).getSex().equals("0")){
-						userList.get(i).setSex("ÄÐ");
+						userList.get(i).setSex("ç”·");
 					}else if(userList.get(i).getSex().equals("1")){
-						userList.get(i).setSex("Å®");
+						userList.get(i).setSex("å¥³");
 					}
 				}
 			}
@@ -55,9 +56,9 @@ public class UserController {
 		if(null != userList && userList.size() > 0){
 			for(int i = 0; i < userList.size(); i++){
 				if(userList.get(i).getSex().equals("0")){
-					userList.get(i).setSex("ÄÐ");
+					userList.get(i).setSex("ç”·");
 				}else if(userList.get(i).getSex().equals("1")){
-					userList.get(i).setSex("Å®");
+					userList.get(i).setSex("å¥³");
 				}
 			}
 		}
@@ -81,8 +82,9 @@ public class UserController {
 	public String editUser(Users user, ModelMap map){
 		if(null != userService && null != user){
 			if(null == user.getId() || ("").equals(user.getId())){
-				user.setDeleteFlag("0");
 				userService.addUser(user);
+				userService.putKey(user);
+				System.out.println(userService.getKey(user).getUsername());
 			}else{
 				userService.updateUser(user);
 			}
@@ -101,4 +103,14 @@ public class UserController {
 		}
 		return "redirect:/web/user/userList";
 	}
+	
+	@RequestMapping(value="/tsdr")
+	public String testSDR(){
+		Users user1 = new Users("tsdr001", 100);
+		Users user2 = new Users("tsdr002", 110);
+		userService.putKey(user1);
+		userService.putKey(user2);
+		return "index";
+	}
+	
 }

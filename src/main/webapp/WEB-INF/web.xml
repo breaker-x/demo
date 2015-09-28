@@ -30,7 +30,7 @@
 	  <servlet-name>springMVC</servlet-name>
 	  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 	  <init-param>
-	      <discription>spring mvc 配置文件</discription>
+	      <description>spring mvc 配置文件</description>
 	      <param-name>contextConfigLocation</param-name>
 	      <param-value>classpath:spring-mvc.xml</param-value>
 	  </init-param>
