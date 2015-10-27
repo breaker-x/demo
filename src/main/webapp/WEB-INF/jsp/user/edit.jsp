@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
-<%@ include file="/pub/common/jsp/meta.jsp"%>
+<%@ include file="/common/jsp/meta.jsp"%>
 <title>添加用户</title>
 <link rel="stylesheet" type="text/css" href="${ctx}/common/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/user/user.css"/>

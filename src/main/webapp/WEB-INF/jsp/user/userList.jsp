@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
-<%@ include file="/pub/common/jsp/meta.jsp"%>
+<%@ include file="/common/jsp/meta.jsp"%>
 <title>用户一览</title>
 <link rel="stylesheet" type="text/css" href="${ctx}/common/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/bootstrap/Css/bootstrap.css" />
@@ -17,17 +17,17 @@
 </head>
 <body>
 	<div class="mainContent">
-		<div class="search_content">
+		<div class="">
 			<form name="sform" id="sform" action="${ctx}/web/user/search" method="post">
 				<ul class="search_ul">
 					<li>
 						用户名:
 					</li>
 					<li>
-						<input type="text" id="uname" name="userName">
+						<input type="text" class="form-control" id="uname" name="userName">
 					</li>
 					<li>
-						<a id="searchUser" href="javascript:void(0)">检索</a>
+						<a id="searchUser" href="javascript:void(0)" class="btn btn-info">检索</a>
 					</li>
 				</ul>
 			</form>
@@ -43,45 +43,54 @@
 					</div>
 				</li>
 			</ul>
+			<div class="panel panel-default">
+			   <div class="panel-body">
+			     	 用户信息一览
+			   </div>
+			</div>
 			<div class="list_content">
-				<table class="content_table" border="1" width="100%" height="100%">
-					<tr class="title_tr">
-						<th>
-							用户名
-						</th>
-						<th>
-							邮箱
-						</th>
-						<th>
-							性别
-						</th>
-						<th>
-							年龄
-						</th>
-						<th>
-							操作
-						</th>
-					</tr>
-					<c:forEach items="${userList}" var="users">
-						<tr>
-							<td>
-								${users.userName}
-							</td>
-							<td>
-								${users.email}
-							</td>
-							<td>
-								${users.sex}
-							</td>
-							<td>
-								${users.age}
-							</td>
-							<td>
-								<a href="${ctx}/web/user/toEdit?id=${users.id}">变更</a>
-								<a href="${ctx}/web/user/delete?id=${users.id}" style="margin-left: 10px;">删除</a>
-							</td>
+				<table class="table table-bordered"">
+					<thead>
+						<tr class="title_tr">
+							<th>
+								用户名
+							</th>
+							<th>
+								邮箱
+							</th>
+							<th>
+								性别
+							</th>
+							<th>
+								年龄
+							</th>
+							<th>
+								操作
+							</th>
 						</tr>
-					</c:forEach>
+					</thead>
+					<tbody>
+						<c:forEach items="${userList}" var="users">
+							<tr>
+								<td>
+									${users.userName}
+								</td>
+								<td>
+									${users.email}
+								</td>
+								<td>
+									${users.sex}
+								</td>
+								<td>
+									${users.age}
+								</td>
+								<td>
+									<a href="${ctx}/web/user/toEdit?id=${users.id}">变更</a>
+									<a href="${ctx}/web/user/delete?id=${users.id}" style="margin-left: 10px;">删除</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</div>
 			<!-- 分页  -->
