@@ -29,4 +29,13 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+    <!-- 配置拦截器，多个拦截器顺序执行 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 匹配的是url路径，如果不配置或/**,将拦截所有的Controller -->
+            <mvc:mapping path="/web"/>
+            <bean class="com.bx.interceptor.PermissionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

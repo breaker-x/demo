@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bx.dao.UserMapper;
+import com.bx.dao.interceptor.page.Page;
 import com.bx.model.Users;
 import com.bx.service.IUserService;
 import com.bx.service.base.BaseServiceImpl;
@@ -30,8 +31,8 @@ public class UserServiceImpl extends BaseServiceImpl<Users, String, UserMapper> 
 	}
 
 	@Override
-	public List<Users> searchUsers(String userName) {
-		return userMapper.searchUsers(userName);
+	public Page<Users> searchUsers(Page<Users> page, String userName) {
+		return userMapper.searchUsers(page, userName);
 	}
 
 	@Override
@@ -65,5 +66,10 @@ public class UserServiceImpl extends BaseServiceImpl<Users, String, UserMapper> 
 	public Users getKey(Users user){
 		//return (Users) redisTemplate.opsForHash().get(user.getOBJECT_KEY(), user.getKey());
 		return (Users) redisTemplate.opsForHash().get("user", "name");
+	}
+
+	@Override
+	public Users checkLogin(String userName, String password) {
+		return userMapper.checkLogin(userName, password);
 	}
 }

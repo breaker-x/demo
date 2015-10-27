@@ -9,7 +9,7 @@ public class Users implements Serializable{
 	private final String OBJECT_KEY = "USER";
 	private Integer id;
 
-    private String username;
+    private String userName;
 
     private String password;
 
@@ -22,7 +22,7 @@ public class Users implements Serializable{
     private String deleteFlag = "0";
 
     public Users(String username, Integer age){
-    	this.username = username;
+    	this.userName = username;
     	this.age = age;
     }
     public Users() {
@@ -35,16 +35,14 @@ public class Users implements Serializable{
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
-
-    public String getPassword() {
+    
+    public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getPassword() {
         return password;
     }
 
@@ -89,10 +87,10 @@ public class Users implements Serializable{
 	}
 
 	public String getKey(){
-		return getUsername();
+		return getUserName();
 	}
 	@Override
 	public String toString(){
-		return "username: " + username + " , " + "age: " + age;
+		return "username: " + userName + " , " + "age: " + age;
 	}
 }

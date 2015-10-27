@@ -3,35 +3,50 @@ package com.bx.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.data.redis.core.RedisTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bx.dao.interceptor.page.Page;
+import com.bx.interceptor.PermissionInterceptor;
 import com.bx.model.Users;
 import com.bx.service.IUserService;
+import com.bx.common.utils.StringUtil;
+import com.bx.common.utils.PageUtil;
 
 @Controller
 @RequestMapping("/web/user")
 public class UserController {
+	private final Logger log = LoggerFactory.getLogger(PermissionInterceptor.class);
 	@Resource
 	private IUserService userService;
 	
 	@RequestMapping("/login")
 	public String login(){
+		log.info("loggggggggggggggggggggggggg");
 		return "login";
 	}
 	
 	@RequestMapping(value="/checkLogin")
-	public String checkLogin(Model model,@RequestParam String userName, @RequestParam String password){
-		model.addAttribute("userName", userName);
-		model.addAttribute("password", password);
-		return "index";
+	public String checkLogin(Users user,HttpServletRequest request){
+		if(null != user){
+			String password = StringUtil.passwordToMD5(user.getPassword());
+			Users loginUser = userService.checkLogin(user.getUserName(), password);
+			if(null != loginUser){
+				request.getSession().setAttribute("user", loginUser);
+				return "index";
+			}
+		}
+		return "login";
 	}
 	
+	/*用户列表一览*/
 	@RequestMapping(value="/userList")
 	public String userList(Model model){
 		List<Users> userList = userService.userList();
@@ -50,9 +65,24 @@ public class UserController {
 		return "user/userList";
 	}
 	
+	/*检索用户列表*/
 	@RequestMapping(value="/search")
-	public String searchUsers(@RequestParam("userName") String userName ,Model model){
-		List<Users> userList = userService.searchUsers(userName);
+	public String searchUsers(@RequestParam("userName") String userName ,ModelMap model, HttpServletRequest request){
+		Page<Users> page = new Page<Users>();
+		int startIndex = 0;
+		int pageSize = page.getPageSize();
+		//获取页码
+		int pageNo = 1;
+		String pageNum = request.getParameter("pageNo");
+		if(!StringUtil.isEmpty(pageNum)){
+			pageNo = Integer.parseInt(pageNum);
+			startIndex = pageNo * page.getPageSize() - page.getPageSize();
+			pageSize = pageSize * startIndex;
+		}
+		//设置limit 第一个值
+		page.setStartIndex(startIndex);
+		page = userService.searchUsers(page, userName);
+		List<Users> userList = page.getRecords();
 		if(null != userList && userList.size() > 0){
 			for(int i = 0; i < userList.size(); i++){
 				if(userList.get(i).getSex().equals("0")){
@@ -63,6 +93,7 @@ public class UserController {
 			}
 		}
 		model.addAttribute("userList", userList);
+		PageUtil.page(pageNo, page.getPageSize(), page.getTotalRecords(), model);
 		return "user/userList";
 	}
 	
@@ -78,18 +109,19 @@ public class UserController {
 		return "user/edit";
 	}
 	
+	/*编辑用户信息*/
 	@RequestMapping(value="/edit")
 	public String editUser(Users user, ModelMap map){
 		if(null != userService && null != user){
 			if(null == user.getId() || ("").equals(user.getId())){
 				userService.addUser(user);
 				userService.putKey(user);
-				System.out.println(userService.getKey(user).getUsername());
+				System.out.println(userService.getKey(user).getUserName());
 			}else{
 				userService.updateUser(user);
 			}
 		}
-		return "redirect:/web/user/userList";
+		return "redirect:/web/user/search";
 	}
 	
 	@RequestMapping(value="/delete")

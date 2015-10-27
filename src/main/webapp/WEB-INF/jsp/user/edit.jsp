@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ include file="/common/jsp/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+<%@ include file="/pub/common/jsp/meta.jsp"%>
 <title>添加用户</title>
-<link rel="stylesheet" type="text/css" href="/springMVCdemo/common/css/common.css"/>
-<link rel="stylesheet" type="text/css" href="/springMVCdemo/css/user/user.css"/>
-<script type="text/javascript" src="/springMVCdemo/common/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="/springMVCdemo/js/user/user.js"></script>
+<link rel="stylesheet" type="text/css" href="${ctx}/common/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/user/user.css"/>
+<script type="text/javascript" src="${ctx}/common/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="${ctx}/js/user/user.js"></script>
 </head>
 <body>
 	<input type="hidden" id="oper_type" value="${oper_type}">
@@ -26,7 +28,7 @@
 				</li>
 			</ul>
 			<div class="list_content">
-				<form name="eform" id="eform" action="/springMVCdemo/web/user/edit" method="post">
+				<form name="eform" id="eform" action="${ctx}/web/user/edit" method="post">
 					<input type="hidden" name="id" value="${user.id}">
 					<table class="content_table" border="1" width="100%" height="100%">
 						<tr>
@@ -34,7 +36,7 @@
 								用户名
 							</th>
 							<td>
-								<input id="username" type="text" name="username" value="${user.username}">
+								<input id="username" type="text" name="userName" value="${user.userName}">
 							</td>
 						</tr>
 						<tr>
@@ -76,7 +78,7 @@
 					</li>
 					<li>
 						<span>
-							<a id="cancel" href="/springMVCdemo/web/user/userList">取消</a>
+							<a id="cancel" href="${ctx}/web/user/userList">取消</a>
 						</span>
 					</li>
 				</ul>
