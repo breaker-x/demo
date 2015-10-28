@@ -15,60 +15,57 @@
 </head>
 <body>
 	<input type="hidden" id="oper_type" value="${oper_type}">
+	<div class="page-content">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption">用户信息修改</div>
+						</div>
+						<div class="portlet-body form">
+							<form class="form-horizontal" name="eform" id="eform" action="${ctx}/web/user/edit" method="post">
+								<input type="hidden" name="id" value="${user.id}">
+								<div class="control-group">
+									<label class="control-label">用户名</label>
+									<div class="controls">
+										<input class="m-wrap small" id="username" type="text" name="userName" value="${user.userName}">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">邮箱</label>
+									<div class="controls">
+										<input class="m-wrap large" id="email" type="text" name="email" value="${user.email}">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">性别</label>
+									<div class="controls">
+										<select class="chosen-with-diselect span1" id="sex" name="sex">
+											<option value="0" <c:if test="${user.sex == 0}">selected</c:if>>男</option>
+											<option value="1" <c:if test="${user.sex == 1}">selected</c:if>>女</option>
+										</select>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">年龄</label>
+									<div class="controls">
+										<input class="m-wrap span1" id="age" type="text" name="age" value="${user.age}">
+									</div>
+								</div>
+								<div class="form-actions">
+									<a class="btn blue" id="editUser" href="javascript:void(0)">确定</a>	
+									<a class="btn blue" id="cancel" href="${ctx}/web/user/userList">取消</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="mainContent">
 		<div class="outside_content">
-			<ul class="outside_content_ul">
-				<li class="lli_top">
-					<div class="tit_top_left">用户信息一览</div>
-				</li>
-				<li class="rli_top">
-					<div class="tit_top_rights">
-						
-					</div>
-				</li>
-			</ul>
-			<div class="list_content">
-				<form name="eform" id="eform" action="${ctx}/web/user/edit" method="post">
-					<input type="hidden" name="id" value="${user.id}">
-					<table class="content_table" border="1" width="100%" height="100%">
-						<tr>
-							<th>
-								用户名
-							</th>
-							<td>
-								<input id="username" type="text" name="userName" value="${user.userName}">
-							</td>
-						</tr>
-						<tr>
-							<th>
-								邮箱
-							</th>
-							<td>
-								<input id="email" type="text" name="email" value="${user.email}">
-							</td>
-						</tr>
-						<tr>
-							<th>
-								性别${user.sex}
-							</th>
-							<td>
-								<select id="sex" name="sex">
-									<option value="0" <c:if test="${user.sex == 0}">selected</c:if>>男</option>
-									<option value="1" <c:if test="${user.sex == 1}">selected</c:if>>女</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								年龄
-							</th>
-							<td>
-								<input id="age" type="text" name="age" value="${user.age}">
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
 			<div class="btn_operator">
 				<ul class="btn_ul">
 					<li>

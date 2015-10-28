@@ -7,11 +7,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 <%@ include file="/common/jsp/meta.jsp"%>
-<title>Insert title here</title>
+<title>SACS HOME</title>
 </head>
 <body>
-	welcome: ${userName}
-	<a href="${ctx}/web/user/search?userName=">用户一览</a>
-	<a href="${ctx}/web/user/tsdr">testsdr</a>
+	<div class="page-content">
+		<div class="tiles">
+			<a href="${ctx}/web/user/search?userName=">
+				<div class="tile bg-green">
+					<div class="title-body">
+						用户一览
+					</div>
+				</div>
+			</a>
+			<%-- <a href="${ctx}/web/user/tsdr">
+				<div class="tile bg-yellow">
+					<div class="title-body">
+						测试redis
+					</div>
+				</div>
+			</a> --%>
+		</div>
+	</div>
 </body>
 </html>
