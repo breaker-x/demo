@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.bx.model.Users;
+
 public class PermissionInterceptor extends HandlerInterceptorAdapter{
 	private final Logger log = LoggerFactory.getLogger(PermissionInterceptor.class);
 	
@@ -20,14 +22,13 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter{
 		String requestUri = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String url = requestUri.substring(contextPath.length());
-		
 		log.info("requestUri：" + requestUri);
 		log.info("contextPath ：" + contextPath);
 		log.info("url：" + url);
-		String userName = (String) request.getSession().getAttribute("user");
-		if(null == userName){
+		Users user = (Users) request.getSession().getAttribute("user");
+		if(null == user){
 			log.info("Interceptor：跳转到login页面！");
-			response.sendRedirect(request.getContextPath() + "/web/login");
+			response.sendRedirect(request.getContextPath() + "/web/user/login");
 			return false;
 		}else{
 			return true;
