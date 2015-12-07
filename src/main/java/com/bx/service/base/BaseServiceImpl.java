@@ -76,8 +76,6 @@ public class BaseServiceImpl<T extends Serializable, ID, baseDao extends BaseMap
     public List<T> selectBySelective(T t) {
     	return basedao.selectBySelective(t);
     }
-    
-	@Override
 	public void delete(T t) {
 		Method delete;
 		try {

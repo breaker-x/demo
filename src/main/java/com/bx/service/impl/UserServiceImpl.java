@@ -25,27 +25,22 @@ public class UserServiceImpl extends BaseServiceImpl<Users, String, UserMapper> 
 	@Resource
 	private RedisTemplate<String, Users> redisTemplate;
 	
-	@Override
 	public List<Users> userList() {
 		return basedao.userList();
 	}
 
-	@Override
 	public Page<Users> searchUsers(Page<Users> page, String userName) {
 		return userMapper.searchUsers(page, userName);
 	}
 
-	@Override
 	public void addUser(Users user) {
 		basedao.addUser(user);
 	}
 
-	@Override
 	public Users searchById(String id) {
 		return basedao.selectByPrimaryKey(id);
 	}
 	
-	@Override
 	public void updateUser(Users user) {
 		basedao.updateByPrimaryKey(user);
 	}
@@ -68,7 +63,6 @@ public class UserServiceImpl extends BaseServiceImpl<Users, String, UserMapper> 
 		return (Users) redisTemplate.opsForHash().get("user", "name");
 	}
 
-	@Override
 	public Users checkLogin(String userName, String password) {
 		return userMapper.checkLogin(userName, password);
 	}
