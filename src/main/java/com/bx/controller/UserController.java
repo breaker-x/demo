@@ -1,22 +1,31 @@
 package com.bx.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 
 import com.bx.dao.interceptor.page.Page;
 import com.bx.interceptor.PermissionInterceptor;
+import com.bx.model.Test;
 import com.bx.model.Users;
 import com.bx.service.IUserService;
+import com.bx.bean.Result;
 import com.bx.common.utils.StringUtil;
 import com.bx.common.utils.PageUtil;
 
@@ -97,8 +106,8 @@ public class UserController {
 		return "user/userList";
 	}
 	
-	@RequestMapping(value="/toEdit")
-	public String toEditUser(@RequestParam String id, ModelMap map){
+	@RequestMapping(value="/toEdit/{id}", method = RequestMethod.GET)
+	public String toEditUser(@PathVariable("id") String id, ModelMap map, HttpServletRequest request, HttpServletResponse response){
 		if(null == id || ("").equals(id)){
 			return "user/edit";
 		}
@@ -145,4 +154,52 @@ public class UserController {
 		return "index";
 	}
 	
+	@RequestMapping("/testResult")
+	public @ResponseBody Result<List<Users>> testRestul(WebRequest request){
+		List<Users> userList = userService.userList();
+		if(null != userList && userList.size() > 0){
+			for(int i = 0; i < userList.size(); i++){
+				if(null != userList.get(i).getSex() && !("").equals(userList.get(i).getSex())){
+					if(userList.get(i).getSex().equals("0")){
+						userList.get(i).setSex("男");
+					}else if(userList.get(i).getSex().equals("1")){
+						userList.get(i).setSex("女");
+					}
+				}
+			}
+		}
+		Result<List<Users>> result = new Result<List<Users>>();
+		result.setResult(userList);
+		return result;
+	}
+	
+	@RequestMapping("/testThread")
+	@ResponseBody
+	public String singleton(HttpServletRequest request){
+		System.out.println("bbb");
+		Test.setI(2);
+		//String testStr = request.getParameter("test");
+		return Test.getI() + "";
+	}
+	
+	@RequestMapping("/testThread1")
+	@ResponseBody
+	public String singleton1(HttpServletRequest request){
+		//String testStr = request.getParameter("test");
+		return Test.getI() + "";
+	}
+	
+	@RequestMapping(value="/toRest/{id}")
+	@ResponseBody
+	public String toRest(@PathVariable("id") String id, ModelMap map){
+		List li = new ArrayList();
+		if(null == id || ("").equals(id)){
+			return "user/edit";
+		}
+		if(null != userService){
+			Users user = userService.searchById(id);
+			map.addAttribute("user", user);
+		}
+		return id;
+	}
 }
