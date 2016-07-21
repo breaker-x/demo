@@ -11,6 +11,9 @@
 <script type="text/javascript" src="${ctx}/js/user/user.js"></script>
 </head>
 <body>
+	<div>
+		<a id="restful" href="javascript:void(0)">restful</a>
+	</div>
 	<div class="page-content">
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -75,7 +78,8 @@
 												${users.age}
 											</td>
 											<td>
-												<a class="btn blue" href="${ctx}/web/user/toEdit?id=${users.id}">变更</a>
+												<%-- <a class="btn blue" href="${ctx}/web/user/toEdit?id=${users.id}">变更</a> --%>
+												<a class="btn blue" href="${ctx}/web/user/toEdit/${users.id}">变更</a>
 												<a class="btn red" href="${ctx}/web/user/delete?id=${users.id}" style="margin-left: 10px;">删除</a>
 											</td>
 										</tr>
